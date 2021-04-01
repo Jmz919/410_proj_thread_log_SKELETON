@@ -1,7 +1,7 @@
 //============================================================================
 // Name        : 410_proj_thread_log.cpp
-// Author      : 
-// Version     :
+// Author      : Josh Zutell
+// Version     : 4-1-21
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
@@ -27,6 +27,7 @@ using namespace std;
 bool bDoWork = true;
 
 void fun(string info){
+	cout << info << endl;
 	Logger log1(LOG_FILE);
 	Logger log2(LOG_CONSOLE);
 
@@ -41,10 +42,10 @@ int main() {
 	//TODO start as many threads as you have cores (see std::thread::hardware_concurrency())
 	//TODO save these threads in a vector
 
-	std::vector<thread> thread_vec;
+	vector<thread> thread_vec;
 	int num_of_cores = std::thread::hardware_concurrency()/2;
 	for (int i = 0; i < num_of_cores; i++) {
-		thread_vec.push_back(thread(fun));
+		thread_vec.push_back(thread(fun, "aaaa"));
 	}
 
 	//TODO let threads run a bit (5 seconds)
@@ -55,7 +56,7 @@ int main() {
 	
 	//TODO wait for all threads to finish
 	for(auto& t : thread_vec) {
-			t.join();
+		t.join();
 	}
 	
 	return 0;

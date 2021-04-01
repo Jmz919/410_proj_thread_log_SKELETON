@@ -1,8 +1,8 @@
 /*
  * Logger.cpp
  *
- *  Created on: Mar 29, 2021
- *      Author: keith
+ *  Created on: Apr 1, 2021
+ *      Author: Josh Zutell
  */
 #include <iostream>
 #include "../includes/Logger.h"
@@ -42,5 +42,7 @@ void Logger::Log(std::string info) {
  * close any open streams
  */
 Logger::~Logger() {
-	Logger::fs.close();
+	if (lt == LOG_FILE) {
+		fs.close();
+	}
 }
