@@ -1,8 +1,8 @@
 /*
  * Logger.h
  *
- *  Created on: Mar 29, 2021
- *      Author: keith
+ *  Created on: Apr 1, 2021
+ *      Author: Josh Zutell
  */
 
 #ifndef LOGGER_H_
