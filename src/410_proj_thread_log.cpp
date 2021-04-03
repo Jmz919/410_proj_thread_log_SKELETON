@@ -24,19 +24,18 @@ using namespace std;
  * returns void
  */
 
+Logger logFile(LOG_FILE);
+Logger logConsole(LOG_CONSOLE);
 bool bDoWork = true;
 
 void fun(string info){
-	cout << info << endl;
-	Logger log1(LOG_FILE);
-	Logger log2(LOG_CONSOLE);
-
 	while (bDoWork) {
-		log1.Log(info);
-		log2.Log(info);
+		logFile.Log(info);
+		logConsole.Log(info);
 		this_thread::sleep_for(chrono::milliseconds(10));
 	}
 }
+
 int main() {
 	
 	//TODO start as many threads as you have cores (see std::thread::hardware_concurrency())
@@ -45,7 +44,8 @@ int main() {
 	vector<thread> thread_vec;
 	int num_of_cores = std::thread::hardware_concurrency()/2;
 	for (int i = 0; i < num_of_cores; i++) {
-		thread_vec.push_back(thread(fun, "aaaa"));
+		string info(to_string(i) + to_string(i) + to_string(i) + to_string(i));
+		thread_vec.push_back(thread(fun, info));
 	}
 
 	//TODO let threads run a bit (5 seconds)

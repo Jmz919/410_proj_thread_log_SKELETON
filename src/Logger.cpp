@@ -29,11 +29,11 @@ Logger::Logger(LOG_TYPE lt, std::string fn) {
  */
 void Logger::Log(std::string info) {
 	if (lt == LOG_FILE) {
-		const std::lock_guard<std::mutex> lock(mtx);
+		lock_guard<mutex> lock(mtx);
 		fs << info << endl;
 	}
 	else {
-		const std::lock_guard<std::mutex> lock(mtx);
+		lock_guard<mutex> lock(mtx);
 		cout << info << endl;
 	}
 }
