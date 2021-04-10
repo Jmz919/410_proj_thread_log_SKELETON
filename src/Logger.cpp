@@ -1,7 +1,7 @@
 /*
  * Logger.cpp
  *
- *  Created on: Apr 1, 2021
+ *  Created on: Apr 10, 2021
  *      Author: Josh Zutell
  */
 #include <iostream>
@@ -17,6 +17,8 @@ using namespace std;
  */
 Logger::Logger(LOG_TYPE lt, std::string fn) {
 	Logger::lt = lt;
+	// if lt is of type LOG_FILE then intiailize filename and filestream
+	// otherwise the fn and fs are not needed
 	if (lt == LOG_FILE) {
 		Logger::fn = fn;
 		Logger::fs.open(fn);
@@ -28,6 +30,8 @@ Logger::Logger(LOG_TYPE lt, std::string fn) {
  * @param info to log
  */
 void Logger::Log(std::string info) {
+	// determines whether to log to file or console based on log type
+	// once determining where to log uses a lock guard to prevent threads interleaving logs
 	if (lt == LOG_FILE) {
 		lock_guard<mutex> lock(mtx);
 		fs << info << endl;
@@ -42,6 +46,7 @@ void Logger::Log(std::string info) {
  * close any open streams
  */
 Logger::~Logger() {
+	// if the log type is log file need to close the file stream that was opened
 	if (lt == LOG_FILE) {
 		fs.close();
 	}
